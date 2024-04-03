@@ -1,26 +1,31 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { md5 } from 'js-md5'
-import LoginContext from './LoginContext'
+import { PropTypes } from 'prop-types'
 import Button from './Button'
 import Input from './Input'
 import './Login.css'
 
-const Login = () => {
-  const [formState, setFormState] = useState({ username: '', password: '' })
+const Login = ({ setLoggedIn }) => {
+  const [username, setUsername] = useState()
+  const [password, setPassword] = useState()
+
   const [errorMessage, setErrorMessage] = useState('')
-  const { setLoggedIn } = useContext(LoginContext)
 
   const setValue = (name, value) => {
-    setFormState({
-      ...formState,
-      [name]: value
-    })
+    switch(name) {
+      case 'username':
+        setUsername(value)
+        break
+      case 'password':
+        setPassword(value)
+        break
+    }
   }
 
   const handleSubmit = async () => {
     const body = { }
-    body.username = formState.username
-    body.password = md5(formState.password) 
+    body.username = username
+    body.password = md5(password) 
     const fetchOptions = {
       method: 'POST',
       body: JSON.stringify(body),
@@ -47,11 +52,15 @@ const Login = () => {
           </div>
         ) : null
       }
-      <Input label="Username" type="text" value={formState.username} onChange={(value) => setValue('username', value)} />
-      <Input label="Password" type="password" value={formState.password} onChange={(value) => setValue('password', value)}/>
+      <Input placeholder="your username here" label="Username" type="text" value={username} onChange={(value) => setValue('username', value)} />
+      <Input label="Password" type="password" value={password} onChange={(value) => setValue('password', value)}/>
       <Button text="Login" onClick={handleSubmit} />
     </aside>
   )
+}
+
+Login.propTypes = {
+  setLoggedIn: PropTypes.func.isRequired,
 }
 
 export default Login

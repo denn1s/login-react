@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import LoginContext from './LoginContext'
 import Login from './Login'
+import Pages from './Pages'
 
 function App() {
   const [ loggedin, setLoggedIn ] = useState(
@@ -13,13 +13,13 @@ function App() {
   }, [loggedin])
 
   return (
-    <LoginContext.Provider value={{ loggedin, setLoggedIn }}>
+    <div>
       {
         loggedin ? (
-          <h1>HOME</h1>
-        ) : <Login /> 
+          <Pages />
+        ) : <Login setLoggedIn={setLoggedIn} /> 
       }
-    </LoginContext.Provider>
+    </div>
   )
 }
 
