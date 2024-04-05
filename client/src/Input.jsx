@@ -13,7 +13,7 @@ const Input = ({ label, placeholder, value, type, onChange }) => {
         type={!eyeClosed && type === 'password' ? 'text' : type }
         onChange={({ target: { value }}) => onChange(value)}
         className="input"
-        value={value}
+        value={value || ''}
         placeholder={placeholder}
       />
       {

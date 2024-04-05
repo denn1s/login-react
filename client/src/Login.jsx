@@ -5,7 +5,7 @@ import Button from './Button'
 import Input from './Input'
 import './Login.css'
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ setToken, navigate }) => {
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
 
@@ -34,9 +34,11 @@ const Login = ({ setLoggedIn }) => {
       }
     }
     const response = await fetch('http://127.0.0.1:5000/login/', fetchOptions)
+    const { access_token } = await response.json()
     if (response.ok) {
-      console.log('success!')
-      setLoggedIn(true)
+      console.log('success! token is: ', access_token)
+      setToken(access_token)
+      navigate('/')
       return
     }
     setErrorMessage('Incorrect user or password')
@@ -60,7 +62,7 @@ const Login = ({ setLoggedIn }) => {
 }
 
 Login.propTypes = {
-  setLoggedIn: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired,
 }
 
 export default Login

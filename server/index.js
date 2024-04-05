@@ -1,7 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 
-import { login, register } from './db.js'
+import { login, register, user_permissions } from './db.js'
+import { generateToken, validateToken } from './jwt.js'
 
 const app = express()
 app.use(express.json())
@@ -17,21 +18,41 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body
-  console.log('username', username)
-  console.log('password', password)
   
   const success = await login(username, password)
-  console.log('success', success)
   if (success) {
+    const actions = await user_permissions(success)
+    const user = {
+      username,
+      email: 'dennis.aldana@gmail.com',
+      actions
+    }
+    const token = generateToken(user)
     res.status(200)
-    res.send('{ "message": "user logged in" }')
+    res.json({ "success": true, access_token: token })
     return
   }
 
   res.status(401)
-  res.send('{ "message": "not logged in" }')
+  res.json({ "success": false })
 })
 
+app.get('/students', async (req, res) => {
+  console.log('req.headers', req.headers)
+  const { authorization } = req.headers
+  const access_token = authorization.substring(7)
+  
+  if (validateToken(access_token)) {
+    res.status(200)
+    res.json([{ name: 'dennis', id: '0666'}, { name: 'other', id: '02361' }])
+    return
+  }
+
+  res.status(403)
+  res.json([])
+
+
+})
 const port = 5000
 
 app.listen(port, () => {

@@ -11,10 +11,12 @@ function parseJwt (token) {
 }
 
 
-const Home = ({ token, navigate }) => {
+const Grades = ({ token, navigate }) => {
   const decodedToken = parseJwt(token)
   
-  if (decodedToken.actions.indexOf('view.home') === -1) {
+  console.log('decodedToken', decodedToken.actions.indexOf('view.grades'))
+
+  if (decodedToken.actions.indexOf('view.grades') === -1) {
     return <h1>Unauthorized</h1>
   }
 
@@ -49,7 +51,7 @@ const Home = ({ token, navigate }) => {
 
   return (
     <div>
-      <h1>List of students: </h1>
+      <h1>List of grades: </h1>
       {
         error ? (
           <h2>{error}</h2>
@@ -62,4 +64,4 @@ const Home = ({ token, navigate }) => {
   )
 }
 
-export default Home
+export default Grades

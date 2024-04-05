@@ -4,21 +4,19 @@ import Login from './Login'
 import Pages from './Pages'
 
 function App() {
-  const [ loggedin, setLoggedIn ] = useState(
-    localStorage.getItem('loggedin') === 'true'
+  const [ token, setToken ] = useState(
+    localStorage.getItem('access_token') || null
   )
 
   useEffect(() => {
-    localStorage.setItem('loggedin', loggedin)
-  }, [loggedin])
+    if (token) {
+      localStorage.setItem('access_token', token)
+    }
+  }, [token])
 
   return (
     <div>
-      {
-        loggedin ? (
-          <Pages />
-        ) : <Login setLoggedIn={setLoggedIn} /> 
-      }
+      <Pages token={token} setToken={setToken} />
     </div>
   )
 }

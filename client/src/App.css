@@ -9,4 +9,6 @@
   align-items: center;
 }
 
-
+.active {
+  border-bottom: 1px solid #646cff;
+}
