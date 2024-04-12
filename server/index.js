@@ -13,7 +13,7 @@ app.post('/register', async (req, res) => {
   const { username, password } = req.body
 
   await register(username, password)
-  res.send('{ "message": "user created" }')
+  res.jsin({ "message": "user created" })
 })
 
 app.post('/login', async (req, res) => {

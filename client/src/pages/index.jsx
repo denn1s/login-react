@@ -1,15 +1,15 @@
-import { useEffect, useState, createContext, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import useToken from './useToken'
-import useNavigate from './useNavigate'
+import useToken from '@hooks/useToken'
+import useNavigate from '@hooks/useNavigate'
+import Nav from '@components/Nav'
 
-import Home from './Pages/Home'
-import Grades from './Pages/Grades'
-import About from './Pages/About'
-import Logout from './Pages/Logout'
+import Home from './Home'
+import Grades from './Grades'
+import About from './About'
+import Logout from './Logout'
+import Register from './Register'
 import Login from './Login'
-import Nav from './Nav'
 
 
 const routes = {
@@ -29,7 +29,11 @@ const routes = {
     component: Login,
     requiresAuth: false
   },
-  '/logout': {
+  '/register': {
+    component: Register,
+    requiresAuth: false
+  },
+   '/logout': {
     component: Logout,
     requiresAuth: false
   }

@@ -1,7 +1,7 @@
 import './App.css'
-import { TokenProvider } from './useToken'
-import { NavigationProvider } from './useNavigate'
-import Pages from './Pages'
+import { TokenProvider } from '@hooks/useToken'
+import { NavigationProvider } from '@hooks/useNavigate'
+import Pages from './pages'
 
 
 function App() {

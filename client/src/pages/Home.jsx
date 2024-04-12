@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import useToken from '../useToken'
-import useNavigate from '../useNavigate'
+import useToken from '@hooks/useToken'
+import useNavigate from '@hooks/useNavigate'
 
 const Home = () => {
   const { navigate } = useNavigate()

@@ -1,4 +1,4 @@
-import useNavigate from "../useNavigate"
+import useNavigate from "@hooks/useNavigate"
 
 const Grades  = () => {
   const { navigate } = useNavigate()
