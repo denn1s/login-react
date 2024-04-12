@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, createContext, useContext } from 'react'
 import PropTypes from 'prop-types'
+
+import useToken from './useToken'
+import useNavigate from './useNavigate'
 
 import Home from './Pages/Home'
 import Grades from './Pages/Grades'
 import About from './Pages/About'
 import Logout from './Pages/Logout'
 import Login from './Login'
+import Nav from './Nav'
+
 
 const routes = {
   '/': {
@@ -30,55 +35,22 @@ const routes = {
   }
 }
 
-const Pages = ({ token, setToken }) => {
-  const isLoggedIn = !!localStorage.getItem('access_token')
-  const path = window.location.hash.substring(1)
-
-  const [page, setPage] = useState(path || '/')
-
-  useEffect(() => {
-    if (path) {
-      setPage(path)
-    }
-  }, [path])
-
-  console.log('path', path)
-  console.log('page', page)
-  console.log('token', token)
+const Pages = () => {
+  const { token } = useToken() 
+  const { page, navigate } = useNavigate()
 
   let CurrentPage = () => <h1>404</h1>
 
   if (routes[page] && routes[page].requiresAuth && !token) {
-    return <div><h1>Unauthorized</h1><a href='/#/login' onClick={() => setPage('/login')}>Please login</a></div>
+    return <div><h1>Unauthorized</h1><a href='/#/login' onClick={() => navigate('/login')}>Please login</a></div>
   }
 
   CurrentPage = routes[page].component
 
   return (
     <div>
-      <ul style={{ position: 'fixed', top: 0, left: 0, width: '100%', listStyle: 'none', display: 'flex', gap: '5px' }}>
-        <li className={page === '/' ? 'active' : ''}> 
-          <a href="/" onClick={() => setPage('/home')}>Home</a>
-        </li>
-        <li className={page === '/grades' ? 'active' : ''}> 
-          <a href="#/grades" onClick={() => setPage('/grades')}>Grades</a>
-        </li>
-         <li className={page === '/about' ? 'active' : ''}> 
-          <a href="#/about" onClick={() => setPage('/about')}>About</a>
-        </li>
-        {
-          isLoggedIn ? (
-            <li className={page === '/logout' ? 'active' : ''}> 
-              <a href="#/logout" onClick={() => setPage('/logout')}>Logout</a>
-            </li>
-          ) : (
-            <li className={page === '/login' ? 'active' : ''}> 
-              <a href="#/login" onClick={() => setPage('/login')}>Login</a>
-            </li>
-          )
-        }
-      </ul>
-      <CurrentPage token={token} setToken={setToken} navigate={setPage} />
+      <Nav />
+      <CurrentPage />
     </div>
   )
 }

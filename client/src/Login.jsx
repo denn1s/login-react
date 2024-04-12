@@ -1,15 +1,18 @@
 import { useState } from 'react'
 import { md5 } from 'js-md5'
 import { PropTypes } from 'prop-types'
+import useToken from './useToken'
 import Button from './Button'
 import Input from './Input'
 import './Login.css'
 
-const Login = ({ setToken, navigate }) => {
+const Login = ({ navigate }) => {
+  const { setToken } = useToken() 
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
 
   const [errorMessage, setErrorMessage] = useState('')
+
 
   const setValue = (name, value) => {
     switch(name) {
@@ -62,7 +65,6 @@ const Login = ({ setToken, navigate }) => {
 }
 
 Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
 }
 
 export default Login
