@@ -28,3 +28,28 @@
   min-width: 100%;
   padding: 10px 5px;
 }
+
+.error {
+  border: 1px solid #ee0011;
+  color: #ee0011;
+  background-color: #ee001111;
+  border-radius: 5px;
+  margin: 20px 0;
+  width: 100%;
+  min-height: 20px; 
+  box-sizing: border-box;
+  padding: 5px 20px;
+  font-size: 10px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.er {
+  position: absolute;
+  bottom: 4px;
+  left: 6px;
+  color: #ee0011;
+  font-size: 8px;
+}

@@ -58,7 +58,7 @@ const Login = () => {
           </div>
         ) : null
       }
-      <Input placeholder="your username here" label="Username" type="text" value={username} onChange={(value) => setValue('username', value)} />
+      <Input label="Username" type="text" value={username} onChange={(value) => setValue('username', value)} />
       <Input label="Password" type="password" value={password} onChange={(value) => setValue('password', value)}/>
       <Button text="Login" onClick={handleSubmit} />
     </aside>

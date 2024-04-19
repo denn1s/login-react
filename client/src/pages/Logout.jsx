@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
+import useNavigate from '@hooks/useNavigate'
 
-const Logout = ({ navigate }) => {
+const Logout = () => {
+  const { navigate } = useNavigate()
   useEffect(() => {
     localStorage.clear()
     setTimeout(() => {
