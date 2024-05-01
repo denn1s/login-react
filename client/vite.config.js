@@ -13,5 +13,9 @@ export default defineConfig({
       '@components': '/src/components',
       '@hooks': '/src/hooks'
     }
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: './setupTests.js'
   }
 })
